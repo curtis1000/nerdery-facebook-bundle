@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <!-- helper is a wrapper for the facebook sdk that can be overloaded -->
+        <service id="nerd_facebook.helper" class="Nerd\FacebookBundle\Helper\FacebookHelper">
+            <argument key="config" type="collection">
+              <argument key="appId">%nerd_facebook.appId%</argument>
+              <argument key="secret">%nerd_facebook.secret%</argument>
+              <argument key="cookie">%nerd_facebook.cookie%</argument>
+              <argument key="scope">%nerd_facebook.scope%</argument>
+          </argument>
+         </service>
+
+         <!-- event listener handles deep linking -->
+         <service id="nerd_facebook.listener" class="Nerd\FacebookBundle\EventListener\ResponseListener">
+             <argument type="service" id="nerd_facebook.helper" />
+
+             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" /> 
+         </service>
+
+    </services>
+</container>
