@@ -8,6 +8,7 @@ Add the following configuration entries to your app config:
         nerd_facebook.secret: yourAppSecretGoesHere  
         nerd_facebook.cookie: "true"
         nerd_facebook.scope: extended,permissions,go,here
+        nerd_facebook.pageTabUrl: https://www.facebook.com/pages/YOUR-PAGE/82937492374?sk=...
     
     twig:
         globals:
@@ -27,4 +28,5 @@ This bundle makes use of the Assetic Bundle in order to make assets within this 
     
 ##Usage##
 
-...will fill out...
+Here is a seperate repository that demonstrates usage: https://github.com/curtis1000/client-project-bundle
+ 
