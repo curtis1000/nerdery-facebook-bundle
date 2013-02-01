@@ -25,6 +25,8 @@ Check out the Facebook PHP SDK (https://github.com/facebook/facebook-php-sdk) to
 This bundle makes use of the Assetic Bundle in order to make assets within this bundle publicly accessible. To enable this functionality, run the following on the command line:  
     
     php app/console assets:install --symlink
+
+This bundle contains view helpers to initialize the Facebook Javascript SDK based using config values.
     
 ##Usage##
 
