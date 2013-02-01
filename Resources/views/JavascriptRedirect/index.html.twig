@@ -1,0 +1,5 @@
+{% extends 'NerdFacebookBundle::blank.layout.html.twig' %}
+
+{% block content %}
+<script>window.top.location = '{{ redirectUrl | raw }}';</script>
+{% endblock %}

@@ -13,7 +13,9 @@
               <argument key="secret">%nerd_facebook.secret%</argument>
               <argument key="cookie">%nerd_facebook.cookie%</argument>
               <argument key="scope">%nerd_facebook.scope%</argument>
+              <argument key="pageTabUrl">%nerd_facebook.pageTabUrl%</argument>
           </argument>
+          <argument key="serviceContainer">[@service_container]</argument>
          </service>
 
          <!-- event listener handles deep linking -->

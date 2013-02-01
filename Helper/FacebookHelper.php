@@ -2,7 +2,9 @@
 
 namespace Nerd\FacebookBundle\Helper;
 
-class FacebookHelper 
+use Symfony\Component\Config\Definition\Exception\Exception;
+
+class FacebookHelper
 {
     protected $_config;
     protected $_sdk;
@@ -11,9 +13,9 @@ class FacebookHelper
      * __construct
      * Setup the SDK.
      * @param $config array
-     * @return void
+     * @return \Nerd\FacebookBundle\Helper\FacebookHelper
      */
-    public function __construct($config)
+    public function __construct($config, $serviceContainer)
     {
         $this->_config = $config;
         $this->initSdk();    
@@ -28,7 +30,8 @@ class FacebookHelper
         // not all elements in $config apply to the sdk constructor
         $this->_sdk = new \Facebook(array(
             'appId' => $this->_config['appId'],
-            'secret' => $this->_config['secret'],    
+            'secret' => $this->_config['secret'],
+            'cookie' => true,
         ));
     }
 
@@ -47,18 +50,42 @@ class FacebookHelper
     }
 
     /**
-     * getLoginUrl
+     * @param $redirectUri
      * @return string
      * Overload this SDK method to include permission request parameter
      */
-    public function getLoginUrl()
+    public function getLoginUrlWithRedirectUri($redirectUri)
     {
         $loginUrl = $this->_sdk->getLoginUrl(array(
             'scope' => $this->_config['scope'],
+            'redirect_uri' => $redirectUri,
         ));
         
         return $loginUrl;
     }
 
+    public function userHasAuthorized()
+    {
+        $id = $this->_sdk->getUser();
+        return (bool) $id;
+    }
 
+    public function getPageTabDeepLinkUrl($name, $pattern, $defaults)
+    {
+        if (empty($this->_config['pageTabUrl'])) {
+            throw new Exception('$this->_config->pageTabUrl is empty.');
+        }
+
+        $url = $this->_config['pageTabUrl'] . '&app_data=' . urlencode(json_encode(
+            array(
+                'deepLink' => array(
+                    'name'      => $name,
+                    'pattern'      => $pattern,
+                    'defaults'    => $defaults,
+                )
+            )
+        ));
+
+        return $url;
+    }
 }

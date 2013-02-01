@@ -1,0 +1,7 @@
+javascript_redirect:
+    pattern: /javascript-redirect
+    defaults: { _controller: NerdFacebookBundle:JavascriptRedirect:index }
+
+login:
+    pattern: /login
+    defaults: { _controller: NerdFacebookBundle:Login:index }
